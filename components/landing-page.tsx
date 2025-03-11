@@ -85,20 +85,20 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
     {
       quote:
         "LoopHoles helped me save over $300 per month by identifying subscription services I forgot I was paying for!",
-      author: "Sarah J.",
-      role: "Marketing Manager",
+      author: "Sarah S.",
+      role: "Chief of Staff",
     },
     {
       quote:
         "The AI recommendations were spot-on. I never realized how much I was spending on dining out until LoopHoles visualized it for me.",
-      author: "Michael T.",
-      role: "Software Engineer",
+      author: "Arnav T.",
+      role: "Software Engineering Intern",
     },
     {
       quote:
         "As someone who struggles with budgeting, this tool has been a game-changer. The interface is beautiful and the insights are invaluable.",
-      author: "Emma R.",
-      role: "Freelance Designer",
+      author: "Arjun P.",
+      role: "Product Lead",
     },
   ]
 
@@ -517,7 +517,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
           </div>
 
           <div className="border-t border-slate-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p>© 2025 LoopHoles. All rights reserved.</p>
+            <p>© made with ❤️ by ivy cho</p>
             <div className="mt-4 md:mt-0 flex space-x-4">
               <a href="#" className="hover:text-emerald-400 transition-colors">
                 Privacy Policy

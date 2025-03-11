@@ -12,6 +12,9 @@ import { useState, useRef } from "react"
 import { cn } from "@/lib/utils"
 import { motion } from "framer-motion"
 
+// Add sample data option
+import { sampleTransactions } from "@/lib/sample-data"
+
 interface FileUploadProps {
   setTransactions: (transactions: Transaction[]) => void
   setIsAnalyzing: (isAnalyzing: boolean) => void
@@ -52,16 +55,32 @@ export function FileUpload({ setTransactions, setIsAnalyzing }: FileUploadProps)
     }, 200)
 
     try {
-      // Check file type
-      if (!file.name.endsWith(".csv") && !file.name.endsWith(".json")) {
-        throw new Error("Please upload a CSV or JSON file")
+      // Check file type and extension
+      const fileExtension = file.name.split(".").pop()?.toLowerCase()
+      const isCSV = fileExtension === "csv" || file.type === "text/csv"
+      const isJSON = fileExtension === "json" || file.type === "application/json"
+
+      if (!isCSV && !isJSON) {
+        throw new Error("Please upload a CSV or JSON file. Supported file extensions: .csv, .json")
       }
 
       // Read file
       const text = await file.text()
 
+      if (text.trim() === "") {
+        throw new Error("The file is empty. Please upload a file with transaction data.")
+      }
+
+      console.log("File content sample:", text.substring(0, 200)) // Debug log
+
       // Parse transactions
-      const parsedTransactions = await parseTransactions(text, file.name.endsWith(".csv"))
+      const parsedTransactions = await parseTransactions(text, isCSV)
+
+      if (parsedTransactions.length === 0) {
+        throw new Error("No valid transactions found in the file. Please check the file format.")
+      }
+
+      console.log("Parsed transactions:", parsedTransactions.length) // Debug log
 
       // Categorize transactions
       const categorizedTransactions = await categorizeTransactions(parsedTransactions)
@@ -78,10 +97,12 @@ export function FileUpload({ setTransactions, setIsAnalyzing }: FileUploadProps)
         clearInterval(progressInterval)
       }, 500)
     } catch (err) {
+      console.error("File processing error:", err) // Debug log
       setError(err instanceof Error ? err.message : "Failed to process file")
       setIsLoading(false)
       setIsAnalyzing(false)
       clearInterval(progressInterval)
+      setUploadProgress(0)
     }
   }
 
@@ -102,6 +123,34 @@ export function FileUpload({ setTransactions, setIsAnalyzing }: FileUploadProps)
 
   const handleButtonClick = () => {
     fileInputRef.current?.click()
+  }
+
+  // Add this function to the FileUpload component
+  const loadSampleData = () => {
+    setIsLoading(true)
+    setIsAnalyzing(true)
+
+    // Simulate upload progress
+    let progress = 0
+    const progressInterval = setInterval(() => {
+      progress += 10
+      setUploadProgress(Math.min(progress, 95))
+
+      if (progress >= 95) {
+        clearInterval(progressInterval)
+      }
+    }, 100)
+
+    // Simulate processing delay
+    setTimeout(() => {
+      setUploadProgress(100)
+
+      setTimeout(() => {
+        setTransactions(sampleTransactions)
+        setIsLoading(false)
+        setIsAnalyzing(false)
+      }, 500)
+    }, 1000)
   }
 
   return (
@@ -213,7 +262,14 @@ export function FileUpload({ setTransactions, setIsAnalyzing }: FileUploadProps)
         className="mt-8 text-center"
       >
         <p className="text-slate-500 dark:text-slate-400 mb-2">Not sure where to start?</p>
-        <div className="flex justify-center gap-4">
+        <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <Button
+            variant="outline"
+            className="text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800"
+            onClick={loadSampleData}
+          >
+            Try Sample Data
+          </Button>
           <Button variant="link" className="text-emerald-600 dark:text-emerald-400">
             Download Sample CSV
           </Button>

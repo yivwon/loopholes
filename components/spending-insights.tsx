@@ -8,6 +8,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { formatCurrency } from "@/lib/utils"
 import { AIFinancialAdvice } from "@/components/ai-financial-advice"
 import { motion } from "framer-motion"
+// Add the BiggestSpendingHabits component to the tabs
+import { BiggestSpendingHabits } from "@/components/biggest-spending-habits"
 
 interface SpendingInsightsProps {
   transactions: Transaction[]
@@ -138,6 +140,12 @@ export function SpendingInsights({ transactions }: SpendingInsightsProps) {
               className="rounded-md data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700"
             >
               Monthly Trends
+            </TabsTrigger>
+            <TabsTrigger
+              value="habits"
+              className="rounded-md data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700"
+            >
+              Spending Habits
             </TabsTrigger>
             <TabsTrigger
               value="advice"
@@ -312,6 +320,10 @@ export function SpendingInsights({ transactions }: SpendingInsightsProps) {
                 </motion.div>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="habits">
+            <BiggestSpendingHabits transactions={transactions} />
           </TabsContent>
 
           <TabsContent value="advice">

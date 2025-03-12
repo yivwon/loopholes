@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils"
 import { motion } from "framer-motion"
 
 // Add sample data option
-import { sampleTransactions } from "@/lib/sample-data"
+import { sampleTransactions, sampleCSV, sampleJSON } from "@/lib/sample-data"
 
 interface FileUploadProps {
   setTransactions: (transactions: Transaction[]) => void
@@ -153,6 +153,32 @@ export function FileUpload({ setTransactions, setIsAnalyzing }: FileUploadProps)
     }, 1000)
   }
 
+  // Function to download sample CSV file
+  const downloadSampleCSV = () => {
+    const blob = new Blob([sampleCSV], { type: "text/csv" })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement("a")
+    a.href = url
+    a.download = "sample_transactions.csv"
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+  }
+
+  // Function to download sample JSON file
+  const downloadSampleJSON = () => {
+    const blob = new Blob([sampleJSON], { type: "application/json" })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement("a")
+    a.href = url
+    a.download = "sample_transactions.json"
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+  }
+
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
       <Card
@@ -270,10 +296,10 @@ export function FileUpload({ setTransactions, setIsAnalyzing }: FileUploadProps)
           >
             Try Sample Data
           </Button>
-          <Button variant="link" className="text-emerald-600 dark:text-emerald-400">
+          <Button variant="link" className="text-emerald-600 dark:text-emerald-400" onClick={downloadSampleCSV}>
             Download Sample CSV
           </Button>
-          <Button variant="link" className="text-emerald-600 dark:text-emerald-400">
+          <Button variant="link" className="text-emerald-600 dark:text-emerald-400" onClick={downloadSampleJSON}>
             Download Sample JSON
           </Button>
         </div>

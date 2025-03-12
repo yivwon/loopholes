@@ -8,6 +8,7 @@ import { useState } from "react"
 import type { Transaction } from "@/lib/types"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
+import { BackgroundAnimation } from "@/components/background-animation"
 
 export default function Home() {
   const [transactions, setTransactions] = useState<Transaction[]>([])
@@ -25,27 +26,7 @@ export default function Home() {
       className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950"
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 0 }}>
-        {[...Array(15)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full bg-emerald-500/5 dark:bg-emerald-500/10"
-            style={{
-              width: Math.random() * 300 + 100,
-              height: Math.random() * 300 + 100,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, Math.random() * 50 - 25],
-              opacity: [0.1, 0.2, 0.1],
-            }}
-            transition={{
-              duration: Math.random() * 10 + 15,
-              repeat: Number.POSITIVE_INFINITY,
-              repeatType: "reverse",
-            }}
-          />
-        ))}
+        <BackgroundAnimation count={10} size="large" />
       </div>
 
       <div className="container mx-auto px-4 py-8 relative z-10">

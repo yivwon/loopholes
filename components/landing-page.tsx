@@ -2,20 +2,11 @@
 
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
-import {
-  ArrowRight,
-  BarChart3,
-  DollarSign,
-  LineChart,
-  PiggyBank,
-  Search,
-  Shield,
-  Sparkles,
-  TrendingUp,
-  Upload,
-} from "lucide-react"
+import { ArrowRight, BarChart3, Search, Shield, Sparkles, TrendingUp, Upload } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
+import Link from "next/link"
+import { BackgroundAnimation } from "@/components/background-animation"
 
 interface LandingPageProps {
   onGetStarted: () => void
@@ -71,34 +62,24 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
     show: { opacity: 1, y: 0 },
   }
 
-  const floatingAnimation = {
-    y: [0, -10, 0],
-    transition: {
-      duration: 3,
-      repeat: Number.POSITIVE_INFINITY,
-      repeatType: "reverse" as const,
-      ease: "easeInOut",
-    },
-  }
-
   const testimonials = [
     {
       quote:
         "LoopHoles helped me save over $300 per month by identifying subscription services I forgot I was paying for!",
-      author: "Sarah S.",
-      role: "Chief of Staff",
+        author: "Sarah S.",
+        role: "Chief of Staff",
     },
     {
       quote:
         "The AI recommendations were spot-on. I never realized how much I was spending on dining out until LoopHoles visualized it for me.",
-      author: "Arnav T.",
-      role: "Software Engineering Intern",
+        author: "Arnav T.",
+        role: "Software Engineering Intern",
     },
     {
       quote:
         "As someone who struggles with budgeting, this tool has been a game-changer. The interface is beautiful and the insights are invaluable.",
-      author: "Arjun P.",
-      role: "Product Lead",
+        author: "Arjun P.",
+        role: "Product Lead",
     },
   ]
 
@@ -151,30 +132,11 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
           background: `radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.1), transparent 70%)`,
         }}
       >
-        {/* Animated background elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          {[...Array(20)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute rounded-full bg-emerald-500/10 dark:bg-emerald-500/5"
-              style={{
-                width: Math.random() * 100 + 50,
-                height: Math.random() * 100 + 50,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-              }}
-              animate={{
-                y: [0, Math.random() * 100 - 50],
-                opacity: [0.1, 0.3, 0.1],
-              }}
-              transition={{
-                duration: Math.random() * 10 + 10,
-                repeat: Number.POSITIVE_INFINITY,
-                repeatType: "reverse",
-              }}
-            />
-          ))}
-        </div>
+       {/* Animated background elements */}
+<div className="absolute inset-0 overflow-hidden">
+<BackgroundAnimation count={15} />
+</div>
+
 
         <div className="container mx-auto px-4 relative z-10">
           <motion.div variants={container} initial="hidden" animate="show" className="text-center max-w-4xl mx-auto">
@@ -213,76 +175,6 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
               >
                 Watch Demo
               </Button>
-            </motion.div>
-          </motion.div>
-
-          {/* Animated Dashboard Preview */}
-          <motion.div
-            initial={{ opacity: 0, y: 100 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8, type: "spring" }}
-            className="mt-16 md:mt-24 max-w-5xl mx-auto relative"
-          >
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-emerald-50 dark:to-slate-950 z-10 pointer-events-none" />
-
-            <motion.div
-              animate={floatingAnimation}
-              className="relative z-0 rounded-2xl shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-800"
-            >
-              <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/5 to-blue-500/5 dark:from-emerald-500/10 dark:to-blue-500/10" />
-              <img
-                src="/placeholder.svg?height=600&width=1200"
-                alt="LoopHoles Dashboard Preview"
-                className="w-full h-auto"
-              />
-
-              {/* Animated elements on the dashboard */}
-              <motion.div
-                className="absolute top-1/4 right-1/4 bg-white dark:bg-slate-800 rounded-lg shadow-lg p-2"
-                animate={{
-                  y: [0, -10, 0],
-                  opacity: [0.9, 1, 0.9],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Number.POSITIVE_INFINITY,
-                  repeatType: "reverse",
-                }}
-              >
-                <PiggyBank className="h-8 w-8 text-emerald-500" />
-              </motion.div>
-
-              <motion.div
-                className="absolute bottom-1/3 left-1/4 bg-white dark:bg-slate-800 rounded-lg shadow-lg p-2"
-                animate={{
-                  y: [0, 10, 0],
-                  opacity: [0.9, 1, 0.9],
-                }}
-                transition={{
-                  duration: 3.5,
-                  repeat: Number.POSITIVE_INFINITY,
-                  repeatType: "reverse",
-                  delay: 0.5,
-                }}
-              >
-                <LineChart className="h-8 w-8 text-blue-500" />
-              </motion.div>
-
-              <motion.div
-                className="absolute top-1/3 left-1/3 bg-white dark:bg-slate-800 rounded-lg shadow-lg p-2"
-                animate={{
-                  y: [0, -15, 0],
-                  opacity: [0.9, 1, 0.9],
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Number.POSITIVE_INFINITY,
-                  repeatType: "reverse",
-                  delay: 1,
-                }}
-              >
-                <DollarSign className="h-8 w-8 text-green-500" />
-              </motion.div>
             </motion.div>
           </motion.div>
         </div>
@@ -344,19 +236,26 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
             </motion.p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto relative">
+            {/* Connecting lines - positioned absolutely */}
+            <div
+              className="hidden md:block absolute top-10 left-1/3 w-1/3 h-0.5 bg-gradient-to-r from-emerald-500 to-blue-500"
+              style={{ zIndex: 0 }}
+            />
+            <div
+              className="hidden md:block absolute top-10 left-2/3 w-1/3 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500"
+              style={{ zIndex: 0 }}
+            />
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
               viewport={{ once: true }}
-              className="text-center"
+              className="text-center relative z-10"
             >
-              <div className="relative">
-                <div className="w-20 h-20 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Upload className="h-8 w-8 text-emerald-600 dark:text-emerald-400" />
-                </div>
-                <div className="hidden md:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-emerald-500 to-transparent" />
+              <div className="w-20 h-20 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Upload className="h-8 w-8 text-emerald-600 dark:text-emerald-400" />
               </div>
               <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">1. Upload Statement</h3>
               <p className="text-slate-600 dark:text-slate-300">
@@ -369,13 +268,10 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
               viewport={{ once: true }}
-              className="text-center"
+              className="text-center relative z-10"
             >
-              <div className="relative">
-                <div className="w-20 h-20 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <BarChart3 className="h-8 w-8 text-blue-600 dark:text-blue-400" />
-                </div>
-                <div className="hidden md:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-blue-500 to-transparent" />
+              <div className="w-20 h-20 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                <BarChart3 className="h-8 w-8 text-blue-600 dark:text-blue-400" />
               </div>
               <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">2. Analyze Spending</h3>
               <p className="text-slate-600 dark:text-slate-300">
@@ -388,7 +284,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
               viewport={{ once: true }}
-              className="text-center"
+              className="text-center relative z-10"
             >
               <div className="w-20 h-20 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Sparkles className="h-8 w-8 text-purple-600 dark:text-purple-400" />
@@ -501,29 +397,29 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
             </div>
 
             <div className="flex space-x-6">
-              <a href="#" className="hover:text-emerald-400 transition-colors">
+              <Link href="/about" className="hover:text-emerald-400 transition-colors">
                 About
-              </a>
-              <a href="#" className="hover:text-emerald-400 transition-colors">
+              </Link>
+              <Link href="/features" className="hover:text-emerald-400 transition-colors">
                 Features
-              </a>
-              <a href="#" className="hover:text-emerald-400 transition-colors">
-                Pricing
-              </a>
-              <a href="#" className="hover:text-emerald-400 transition-colors">
+              </Link>
+              <Link href="https://www.linkedin.com/in/ivyhcho/" target="_blank" className="hover:text-emerald-400 transition-colors">
                 Contact
-              </a>
+              </Link>
             </div>
           </div>
 
           <div className="border-t border-slate-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p>© made with ❤️ by ivy cho</p>
+          <p>© made with ❤️ by ivy cho</p>
             <div className="mt-4 md:mt-0 flex space-x-4">
-              <a href="#" className="hover:text-emerald-400 transition-colors">
-                Privacy Policy
+            <a href="https://github.com/yivwon/loopholes/" target="_blank" className="hover:text-emerald-400 transition-colors">
+                Source Code
               </a>
-              <a href="#" className="hover:text-emerald-400 transition-colors">
-                Terms of Service
+              <a href="https://github.com/yivwon" target="_blank" className="hover:text-emerald-400 transition-colors">
+                GitHub
+              </a>
+              <a href="https://www.linkedin.com/in/ivyhcho/" target="_blank" className="hover:text-emerald-400 transition-colors">
+                LinkedIn
               </a>
             </div>
           </div>

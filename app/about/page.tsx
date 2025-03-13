@@ -99,9 +99,9 @@ export default function AboutPage() {
             className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-8 mb-12"
           >
             <div className="flex items-center mb-6">
-              <div className="bg-emerald-100 dark:bg-emerald-900/30 p-3 rounded-full mr-4">
-                <User className="h-6 w-6 text-emerald-600 dark:text-emerald-400" />
-              </div>
+              {/* <div className="bg-emerald-100 dark:bg-emerald-900/30 p-3 rounded-full mr-4">
+                <User className="h-6 w-6 text-emerald-600 dark:text-emerald-400" /> */}
+              {/* </div> */}
               <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Interested in LoopHoles?</h2>
             </div>
 

@@ -7,6 +7,8 @@ import { useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
 import { BackgroundAnimation } from "@/components/background-animation"
+import { SiteHeader } from "@/components/site-header"
+
 
 interface LandingPageProps {
   onGetStarted: () => void
@@ -124,10 +126,11 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
 
   return (
     <div className="bg-gradient-to-b from-emerald-50 via-white to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 min-h-screen">
+      <SiteHeader onGetStarted={onGetStarted} />
       {/* Hero Section */}
       <div
         ref={heroRef}
-        className="relative overflow-hidden pt-20 md:pt-32 pb-16 md:pb-24"
+        className="relative overflow-hidden pt-12 md:pt-24 pb-16 md:pb-24"
         style={{
           background: `radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.1), transparent 70%)`,
         }}
